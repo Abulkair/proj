@@ -16,29 +16,29 @@ public class projTest {
 	
 	@Test
 	public void test1() {
-		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/words test.txt";
-		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/dict.txt";
+		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/words test.txt";
+		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict.txt";
 		assertEquals(expected, proj.buildChain(path1, path2));
 	}
 	
 	@Test
 	public void test2() {
-		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/words test 2.txt";
-		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/dict.txt";
+		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/words test 2.txt";
+		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict.txt";
 		assertEquals(expected, proj.buildChain(path1, path2));
 	}
 	
 	@Test
 	public void test3() {
-		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/words.txt";
-		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/dict test.txt";
+		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/words.txt";
+		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict test.txt";
 		assertEquals(expected, proj.buildChain(path1, path2));
 	}
 	
 	@Test
 	public void test4() {
-		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/words.txt";
-		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/dict test 2.txt";
+		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/words.txt";
+		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict test 2.txt";
 		assertEquals(expected, proj.buildChain(path1, path2));
 	}
 }

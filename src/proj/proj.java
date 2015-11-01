@@ -11,7 +11,7 @@ public class proj {
 	public static ArrayList<String> dict;
 	
 	public static void main(String[] args) {
-		dict = buildChain("/Users/Abulkair/Documents/workspace/proj/src/proj/words.txt", "/Users/Abulkair/Documents/workspace/proj/src/proj/dict.txt");
+		dict = buildChain("/Users/Abulkair/Documents/workspace/proj/src/proj/texts/words.txt", "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict.txt");
 		
 		if (dict != null){		
 			for (String word:dict) {
