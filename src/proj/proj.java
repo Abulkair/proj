@@ -8,7 +8,7 @@ public class proj {
 
 	private static String first, second, tmp, tmp2;
 
-	private static ArrayList<String> dict = new ArrayList<String>();
+	public static ArrayList<String> dict;
 	
 	public static void main(String[] args) {
 		dict = buildChain("/Users/Abulkair/Documents/workspace/proj/src/proj/words.txt", "/Users/Abulkair/Documents/workspace/proj/src/proj/dict.txt");
@@ -22,6 +22,7 @@ public class proj {
 	
 	public static ArrayList<String> buildChain(String pathWords, String pathDict) {
 		ArrayList<String> chain = new ArrayList<String>();
+		dict = new ArrayList<String>();
 		
 		if (!readData(pathWords, pathDict)) return null;
 		
@@ -96,7 +97,7 @@ public class proj {
 		    br.close();
 		    
 		    if (dict.isEmpty()) {
-		    	throw new IOException("Нет слов соответствующей длины в словаре!");
+		    	throw new IOException("Нет слов соответствующей длины в словаре или словарь пуст!");
 		    }
 		    
 		    dict.trimToSize();
