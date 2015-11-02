@@ -41,4 +41,18 @@ public class projTest {
 		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict test 2.txt";
 		assertEquals(expected, proj.buildChain(path1, path2));
 	}
+	
+	@Test
+	public void test5() {
+		String path1 = null;
+		String path2 = "";
+		assertEquals(expected, proj.buildChain(path1, path2));
+	}
+	
+	@Test
+	public void test6() {
+		String path1 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/words fake.txt";
+		String path2 = "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict fake.txt";
+		assertEquals(expected, proj.buildChain(path1, path2));
+	}
 }

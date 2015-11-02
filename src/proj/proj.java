@@ -2,6 +2,8 @@ package proj;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class proj {
@@ -11,7 +13,7 @@ public class proj {
 	public static ArrayList<String> dict;
 	
 	public static void main(String[] args) {
-		dict = buildChain("/Users/Abulkair/Documents/workspace/proj/src/proj/texts/words.txt", "/Users/Abulkair/Documents/workspace/proj/src/proj/texts/dict.txt");
+		dict = buildChain(args[0], args[1]);
 		
 		if (dict != null){		
 			for (String word:dict) {
@@ -21,6 +23,7 @@ public class proj {
 	}
 	
 	public static ArrayList<String> buildChain(String pathWords, String pathDict) {
+		boolean flag = true; 
 		ArrayList<String> chain = new ArrayList<String>();
 		dict = new ArrayList<String>();
 		
@@ -31,7 +34,7 @@ public class proj {
 		
 		chain.add(first);
 		
-		while (getDistance(tmp, second)>1) {
+		while (getDistance(tmp, second)>1 && flag) {
 			tmp2 = tmp;
 			for (String word:dict) {
 				if (getDistance(tmp, word)==1) {
@@ -44,24 +47,36 @@ public class proj {
 			
 			if (tmp==tmp2) {
 				System.out.println("Нет слов, отличающиеся на один символ.");
-				break;
+				flag=false;
 			}
 			
 			if (tmp==first) {
 				System.out.println("Нет слов, отличающиеся на один символ.");
-				break;
+				flag=false;
 			}
 			
-			chain.add(tmp);
+			if (flag) chain.add(tmp);
 		}
 		
 		chain.add(second);
 		
-		return chain;
+		if (flag) {
+			return chain;
+		} else {
+			return null;
+		}
 	}
 	
 	private static boolean readData(String pathWords, String pathDict) {
 		try {
+			if (pathWords == null || pathDict == null) {
+				throw new IOException("Не хватает входных параметров!");
+			}
+			
+			if (Files.notExists(Paths.get(pathWords)) || Files.notExists(Paths.get(pathDict))) {
+				throw new IOException("Не существуют один или оба входных файла!");
+			}
+			
 			BufferedReader br = new BufferedReader(new FileReader(pathWords));
 		    first = br.readLine();
 		    second = br.readLine();
@@ -88,7 +103,6 @@ public class proj {
 		    
 			String line = br.readLine();
 
-			//Select words of necessary length
 		    while (line != null) {
 		        if (line.length()==first.length()) dict.add(line);
 		        line = br.readLine();
@@ -109,13 +123,14 @@ public class proj {
 		return true;
 	}
 	
+	//Levenshtein distance
 	 public static int getDistance(String s, String t) {
 	      if (s == null || t == null) {
 	          throw new IllegalArgumentException("Strings must not be null");
 	      }
 
-	      int n = s.length(); // length of s
-	      int m = t.length(); // length of t
+	      int n = s.length();
+	      int m = t.length();
 
 	      if (n == 0) {
 	          return m;
@@ -124,7 +139,6 @@ public class proj {
 	      }
 
 	      if (n > m) {
-	          // swap the input strings to consume less memory
 	          String tmp = s;
 	          s = t;
 	          t = tmp;
@@ -132,17 +146,16 @@ public class proj {
 	          m = t.length();
 	      }
 
-	      int p[] = new int[n+1]; //'previous' cost array, horizontally
-	      int d[] = new int[n+1]; // cost array, horizontally
-	      int _d[]; //placeholder to assist in swapping p and d
+	      int p[] = new int[n+1];
+	      int d[] = new int[n+1];
+	      int _d[];
 
-	      // indexes into strings s and t
-	      int i; // iterates through s
-	      int j; // iterates through t
+	      int i;
+	      int j;
 
-	      char t_j; // jth character of t
+	      char t_j;
 
-	      int cost; // cost
+	      int cost;
 
 	      for (i = 0; i<=n; i++) {
 	          p[i] = i;
@@ -154,18 +167,15 @@ public class proj {
 
 	          for (i=1; i<=n; i++) {
 	              cost = s.charAt(i-1)==t_j ? 0 : 1;
-	              // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
+
 	              d[i] = Math.min(Math.min(d[i-1]+1, p[i]+1),  p[i-1]+cost);
 	          }
 
-	          // copy current distance counts to 'previous row' distance counts
 	          _d = p;
 	          p = d;
 	          d = _d;
 	      }
 
-	      // our last action in the above loop was to switch d and p, so p now 
-	      // actually has the most recent cost counts
 	      return p[n];
 	  }
 }
